@@ -21,8 +21,13 @@ export default function WordForm() {
 
   const authors = useSelector(state => [ ...new Set(state.words.map(w => w.author)) ])
   
-  const handleChange = (e) => {
-      setState({...state, [e.target.name]: e.target.value})
+  const handleChange = (e, newValue = undefined) => {
+      if (newValue) {
+        setState({...state, author: newValue})
+      } else {
+        setState({...state, [e.target.name]: e.target.value})
+      }
+      
   }
 
   return (
@@ -40,11 +45,11 @@ export default function WordForm() {
       />
         <Autocomplete
           value={state.author}
+          freeSolo
           onChange={handleChange}
-          options={authors}
-          getOptionLabel={(author) => author.name}
+          options={authors.map(a => a.name)}
           style={{width: 300}}
-          renderInput={(params) => <TextField {...params} label='Author' variant='outlined'/>}
+          renderInput={(params) => <TextField {...params} name='author' onChange={handleChange} label='Author' variant='outlined'/>}
         />
        
     </form>

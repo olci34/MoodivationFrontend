@@ -10,7 +10,7 @@ export default function WordsContainer() {
 
   useEffect(() => {
     dispatch(fetchWords())
-    dispatch(fetchAuthors())
+    // dispatch(fetchAuthors())
   });
 
   return (
