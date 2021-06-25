@@ -25,10 +25,17 @@
   text-align: left;
 }
 
-.word h4 {
+.word label {
   text-align: right;
 }
 
 ul {
   list-style-type: none;
+}
+
+#word-form {
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  width: 40%;
 }

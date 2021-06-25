@@ -15,7 +15,7 @@ export default function Word(props) {
   return (
     <div className="word">
       <h3>{props.word.title}</h3>
-      <h4>{props.word.author.name}</h4>
+      <label>Author: {props.word.author.name}, Categories: {props.word.categories.map(c => c.name).join(', ')}</label>
       <Button
         variant="contained"
         onClick={(e) => history.push(`/words/${props.word.id}/edit`)}

@@ -2,6 +2,7 @@ import Word from "./Word";
 import { useSelector } from "react-redux";
 
 export default function WordsList() {
+  
   const words = useSelector((state) => state.words || []);
 
   return (
