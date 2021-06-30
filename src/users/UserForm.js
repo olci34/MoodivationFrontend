@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import postUser from '../actions/postUser'
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 const useStyles = makeStyles((theme) => ({
     root: {
       '& > *': {
@@ -17,13 +18,14 @@ export default function UserForm() {
     const classes = useStyles();
     const [state, setState] = useState({username: "", email: "", password: ""})
     const history = useHistory()
+    const dispatch = useDispatch()
     const handleChange = (e) => {
         setState({...state, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        postUser(state)
+        dispatch(postUser(state))
         history.push('/words') // TODO: If there is an error, stay in /signup
     }
 
