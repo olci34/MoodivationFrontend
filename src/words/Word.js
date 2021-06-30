@@ -1,31 +1,28 @@
 import { Button } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useHistory, Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import deleteWord from "../actions/deleteWord";
-export default function Word(props) {
+import WordForm from "./WordForm";
+export default function Word() {
+
+  const wordID = useParams()
+  const words = useSelector((state) => state.words)
+  const word = words.find(w => w.id === parseInt(wordID.id))
   const dispatch = useDispatch();
 
   const handleDeleteWord = (e) => {
-    dispatch(deleteWord(props.word.id));
+    dispatch(deleteWord(word.id));
   };
 
-  const history = useHistory();
-
   return (
-    <>
     <div className="word">
-      <h3>{props.word.title}</h3>
-      <label>Author: {props.word.author.name}, Categories: {props.word.categories.map(c => c.name).join(', ')}</label>
-      <Button
-        variant="contained"
-        onClick={(e) => history.push(`/words/${props.word.id}/edit`)}
-      >
-        Edit
-      </Button>
+      <h3><Link to={`/words/${word.id}`}> {word.title} </Link></h3>
+      <label>Author: {word.author.name}, Categories: {word.categories.map(c => c.name).join(', ')}</label>
+      <br/>
       <Button variant="contained" onClick={handleDeleteWord}>
         Delete
       </Button>
+      <WordForm word={word}/>
     </div>
-    </>
   );
 }

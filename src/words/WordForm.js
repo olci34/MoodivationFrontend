@@ -3,15 +3,17 @@ import { Button,TextField } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useSelector, useDispatch } from "react-redux";
 import postWord from "../actions/postWord";
+
 export default function WordForm(props) {
 
-  let preState = props.word || {
+  const preState = props.word || {
       language: 'en', // for now, just english is supported
       size: 24,
-      word: '',
+      title: '',
       author: {name: ''},
       categories: []
     }
+  const buttonName = props.word ? "Edit Word" : "Create Word"
   const [state, setState] = useState(preState)
   const dispatch = useDispatch()
   const authors = useSelector(state => state.authors)
@@ -22,7 +24,7 @@ export default function WordForm(props) {
       if (newValue) {
         const name = e.target.id.split("-")[0] || "categories" // string is added because when a category removed e.target.id returns ""
         setState({...state, [name]: newValue})
-      } else if (e.target.name === "word") {
+      } else if (e.target.name === "title") {
         setState({...state, [e.target.name]: e.target.value})
       } else {  // If new author is entered
         setState({...state, [e.target.name]: {name: e.target.value} })
@@ -32,21 +34,21 @@ export default function WordForm(props) {
   const handleWordSubmit = (e) => {
       e.preventDefault()
       const categoryIds = state.categories.map(c => c.id)
-      const word = {size: state.size, title: {[state.language]: state.word}, author_id: state.author.id, category_ids: categoryIds} 
-      dispatch(postWord(word))
+      const word = {size: state.size, title: {[state.language]: state.title}, author_id: state.author.id, category_ids: categoryIds} 
+      props.word ? console.log("editWord") : dispatch(postWord(word))
   }
 
   return (
     <form id="word-form" onSubmit={handleWordSubmit}>
       <TextField
-        name='word'
+        name='title'
         variant="outlined"
         multiline
         rows={4}
         fullWidth
         label="Word"
         placeholder="Please enter your word here"
-        value={state.word}
+        value={state.title}
         onChange={handleChange}
       />
         <Autocomplete
@@ -76,7 +78,7 @@ export default function WordForm(props) {
             />
           )}
         />
-       <Button type="submit" variant="contained">Create Word</Button>
+       <Button type="submit" variant="contained">{buttonName}</Button>
     </form>
   );
 }

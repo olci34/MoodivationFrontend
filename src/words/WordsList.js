@@ -1,7 +1,8 @@
 import Word from "./Word";
 import { useSelector } from "react-redux";
 import { Button } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+
 export default function WordsList() {
 
   const words = useSelector((state) => state.words || []);
@@ -9,14 +10,13 @@ export default function WordsList() {
   return (
     <>
     <div id="words-list">
-      <ul>
+      <ol>
         {words.map((word) => (
           <li key={`words-list-item-${word.id}`}>
-            
-            <Word word={word} />
+            <Link to={`/words/${word.id}`} >{word.title}</Link>
           </li>
         ))}
-      </ul>
+      </ol>
     </div>
     <Button variant="contained" type="button" onClick={(e) => history.push('/words/new')}>Add Word</Button>
     </>

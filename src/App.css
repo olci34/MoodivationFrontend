@@ -7,9 +7,8 @@
 
 #words-list {
   position: fixed;
-  right: 30%;
-  top: 30%;
-  text-align: center;
+  left: 10%;
+  top: 10%;
   height: 50%;
   overflow-y: auto;
   border-style: solid;
@@ -29,13 +28,9 @@
   text-align: right;
 }
 
-ul {
-  list-style-type: none;
-}
-
 #word-form {
   position: fixed;
   top: 20%;
-  left: 30%;
-  width: 40%;
+  right: 10%;
+  width: 30%;
 }

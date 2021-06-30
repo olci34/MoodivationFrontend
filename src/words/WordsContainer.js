@@ -5,7 +5,7 @@ import fetchWords from "../actions/fetchWords";
 import WordForm from "./WordForm";
 import { Switch,Route } from "react-router";
 import fetchAuthors from "../actions/fetchAuthors";
-
+import Word from "./Word"
 export default function WordsContainer() {
   const dispatch = useDispatch();
 
@@ -21,6 +21,9 @@ export default function WordsContainer() {
       </Route>
       <Route path="/words/new">
         <WordForm />
+      </Route>
+      <Route path="/words/:id">
+        <Word />
       </Route>
     </Switch>
   );
