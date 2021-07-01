@@ -1,4 +1,3 @@
-import Word from "./Word";
 import { useSelector } from "react-redux";
 import { Button } from "@material-ui/core";
 import { useHistory, Link } from "react-router-dom";
@@ -6,6 +5,7 @@ import { useHistory, Link } from "react-router-dom";
 export default function WordsList() {
 
   const words = useSelector((state) => state.words || []);
+  
   const history = useHistory()
   return (
     <>

@@ -8,6 +8,11 @@ export default function appReducer(state, action) {
       const updatedWords = state.words
       updatedWords.push(action.payload)
       return { ...state, words: updatedWords}
+    case "PATCH_WORD":
+      const words = state.words
+      const oldWordIndex = words.findIndex(w => w.id === action.payload.id)
+      words.splice(oldWordIndex, 1, action.payload)
+      return {...state, words: words}
     default:
       return state;
   }

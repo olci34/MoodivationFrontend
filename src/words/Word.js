@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import { useHistory, Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import deleteWord from "../actions/deleteWord";
 import WordForm from "./WordForm";

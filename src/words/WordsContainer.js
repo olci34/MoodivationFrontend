@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import WordsList from "./WordsList";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import fetchWords from "../actions/fetchWords";
 import WordForm from "./WordForm";
 import { Switch,Route } from "react-router";
@@ -12,8 +12,9 @@ export default function WordsContainer() {
   useEffect(() => {
     dispatch(fetchWords())
     dispatch(fetchAuthors())
-  });
-
+  },[]);
+ const words = useSelector(state => state.words)
+ console.log(words)
   return (
     <Switch>
       <Route exact path="/words">

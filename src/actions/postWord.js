@@ -1,6 +1,6 @@
 export default function postWord(word) {
-    return (dispatch) => {
-        fetch("http://localhost:3001/words", {
+  return new Promise((resolve) => {
+  fetch("http://localhost:3001/words", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -8,6 +8,6 @@ export default function postWord(word) {
             },
             body: JSON.stringify({ word: word }),
           }).then(resp => resp.json())
-            .then(word => dispatch({type: "ADD_WORD", payload: word}))
-    }
+            .then(word => resolve({type: "ADD_WORD", payload: word}))
+    })
 }
