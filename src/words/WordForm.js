@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Button, TextField } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
+} from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useSelector, useDispatch } from "react-redux";
 import postWord from "../actions/postWord";
@@ -10,7 +17,7 @@ export default function WordForm(props) {
   const preState = props.word
     ? { ...props.word, language: "en" }
     : {
-        language: "en", // for now, just english is supported
+        language: "", // for now, just english is supported
         size: "24",
         title: "",
         author: { name: "" },
@@ -64,6 +71,20 @@ export default function WordForm(props) {
 
   return (
     <form id="word-form" onSubmit={handleWordSubmit}>
+      <FormControl variant="outlined" margin="normal" size="small">
+        <InputLabel>Lang</InputLabel>
+        <Select
+          name="language"
+          value={state.language}
+          onChange={(e) =>
+            setState({ ...state, [e.target.name]: e.target.value })
+          }
+          label="Language"
+        >
+          <MenuItem value={"en"}>en</MenuItem>
+          <MenuItem value={"tr"}>tr</MenuItem>
+        </Select>
+      </FormControl>
       <TextField
         name="title"
         variant="outlined"
