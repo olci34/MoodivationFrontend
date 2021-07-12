@@ -7,12 +7,13 @@ import NavBar from "./layout/NavBar";
 function App() {
   return (
     <div className="App">
+      <NavBar />
       <Switch>
         <Route path="/signup">
           <UserForm />
         </Route>
         <Route path="/words">
-          <NavBar />
+          
           <WordsContainer />
         </Route>
       </Switch>

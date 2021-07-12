@@ -15,7 +15,8 @@ export default function NavBar() {
           </Typography>
           <Button variant="outlined" color="inherit" onClick={(e) => history.push('/words/new')}>Add Word</Button>
           <Button variant="outlined" color="inherit" onClick={(e) => history.push('/categories')}>Categories</Button>
-          
+          <Button variant="outlined" color="inherit" onClick={(e) => history.push('/words')}>Words</Button>
+
           <Button color="inherit">Logout</Button>
         </Toolbar>
       </AppBar>
