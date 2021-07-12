@@ -48,7 +48,7 @@ export default function WordForm(props) {
     const word = {
       size: 24,
       title: { [lang]: title, [langTR]: titleTR },
-      author_id: author.id,
+      authors_attributes: author,
       category_ids: categoryIds,
     };
     if (props.word) {

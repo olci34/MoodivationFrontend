@@ -7,7 +7,14 @@ export default function appReducer(state, action) {
     case "ADD_WORD":
       const updatedWords = state.words
       updatedWords.push(action.payload)
-      return { ...state, words: updatedWords}
+      if (!(state.authors.map(a => a.id).includes(action.payload.author.id))) {
+        const updatedAuthors = state.authors
+        updatedAuthors.push(action.payload.author)
+        return {...state, words: updatedWords, authors: updatedAuthors} 
+      } else {
+        return { ...state, words: updatedWords}
+      }
+      
     case "PATCH_WORD":
       const words = state.words
       const oldWordIndex = words.findIndex(w => w.id === action.payload.id)
