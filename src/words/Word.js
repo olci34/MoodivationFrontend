@@ -3,7 +3,6 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import deleteWord from "../actions/deleteWord";
 import WordForm from "./WordForm";
-import { useEffect } from "react";
 
 export default function Word() {
 

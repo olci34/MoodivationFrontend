@@ -7,6 +7,7 @@ import { Switch,Route } from "react-router";
 import fetchAuthors from "../actions/fetchAuthors";
 import Word from "./Word"
 import CategoryList from "../categories/CategoryList";
+import fetchCategories from "../actions/fetchCategories";
 
 export default function WordsContainer() {
 
@@ -15,6 +16,7 @@ export default function WordsContainer() {
   useEffect(() => {
     dispatch(fetchWords())
     dispatch(fetchAuthors())
+    dispatch(fetchCategories())
   });
 
   return (

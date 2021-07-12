@@ -4,6 +4,9 @@ export default function appReducer(state, action) {
       return { ...state, words: action.payload };
     case "FETCH_AUTHORS":
       return {...state, authors: action.payload}
+    case "FETCH_CATEGORIES":
+      debugger
+      return {...state, categories: action.payload}
     case "ADD_WORD":
       const updatedWords = state.words
       updatedWords.push(action.payload)
@@ -14,7 +17,6 @@ export default function appReducer(state, action) {
       } else {
         return { ...state, words: updatedWords}
       }
-      
     case "PATCH_WORD":
       const words = state.words
       const oldWordIndex = words.findIndex(w => w.id === action.payload.id)

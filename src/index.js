@@ -12,6 +12,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 const state = {
   words: [],
+  authors: [],
+  categories: []
 };
 
 const store = createStore(
