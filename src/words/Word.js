@@ -3,6 +3,8 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import deleteWord from "../actions/deleteWord";
 import WordForm from "./WordForm";
+import { useEffect } from "react";
+
 export default function Word() {
 
   const wordID = useParams()
@@ -10,6 +12,7 @@ export default function Word() {
   const word = words.find(w => w.id === parseInt(wordID.id))
   const dispatch = useDispatch();
   const history = useHistory()
+
   const handleDeleteWord = async (e) => {
     dispatch(await deleteWord(word.id));
     history.push('/words')

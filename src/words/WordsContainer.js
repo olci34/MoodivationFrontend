@@ -26,6 +26,9 @@ export default function WordsContainer() {
       <Route path="/words/:id">
         <Word />
       </Route>
+      <Route path="/categories">
+        <CategoryList />
+      </Route>
     </Switch>
   );
 }
