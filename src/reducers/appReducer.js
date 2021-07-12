@@ -13,6 +13,11 @@ export default function appReducer(state, action) {
       const oldWordIndex = words.findIndex(w => w.id === action.payload.id)
       words.splice(oldWordIndex, 1, action.payload)
       return {...state, words: words}
+    case "DELETE_WORD":
+      const allWords = state.words
+      const deletedItemIndex = allWords.findIndex(w => w.id === action.payload.id)
+      allWords.splice(deletedItemIndex, 1)
+      return {...state, words: allWords}
     default:
       return state;
   }

@@ -14,7 +14,6 @@ export default function WordsContainer() {
     dispatch(fetchAuthors())
   },[]);
  const words = useSelector(state => state.words)
- console.log(words)
   return (
     <Switch>
       <Route exact path="/words">
