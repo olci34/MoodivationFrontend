@@ -29,14 +29,7 @@ export default function WordForm(props) {
   const [titles, setTitles] = useState([<PartialFormTitle key="partialForm1" title={title} lang={lang} setLang={setLang} setTitle={setTitle} />])
   
   const authors = useSelector((state) => state.authors);
-  const stateCategories = useSelector((state) =>
-    state.words.map((w) => w.categories).flat()
-  ); // Sorts fetched words categories instead of a categories fetch request
-  const categoryOptions = [...new Set(stateCategories.map((c) => c.id))].map(
-    (id) => {
-      return { id: id, name: stateCategories.find((c) => c.id === id).name };
-    }
-  ); // eleminates duplicate categories
+  const stateCategories = useSelector((state) => state.categories)
 
   const buttonName = props.word ? "Edit Word" : "Create Word";
   const dispatch = useDispatch()
@@ -96,7 +89,7 @@ export default function WordForm(props) {
         multiple
         value={categories}
         onChange={(e, newValue) => newValue ? setCategories(newValue) : console.log("No new value of category") }
-        options={categoryOptions}
+        options={stateCategories}
         getOptionLabel={(category) => category.name}
         style={{ width: 300 }}
         renderInput={(params) => (

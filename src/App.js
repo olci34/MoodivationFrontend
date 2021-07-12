@@ -3,6 +3,7 @@ import "./App.css";
 import UserForm from "./users/UserForm";
 import WordsContainer from "./words/WordsContainer";
 import NavBar from "./layout/NavBar";
+import CategoriesContainer from "./categories/CategoriesContainer";
 
 function App() {
   return (
@@ -13,8 +14,10 @@ function App() {
           <UserForm />
         </Route>
         <Route path="/words">
-          
           <WordsContainer />
+        </Route>
+        <Route path="/categories">
+          <CategoriesContainer />
         </Route>
       </Switch>
     </div>

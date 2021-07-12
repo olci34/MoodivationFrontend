@@ -5,7 +5,6 @@ export default function appReducer(state, action) {
     case "FETCH_AUTHORS":
       return {...state, authors: action.payload}
     case "FETCH_CATEGORIES":
-      debugger
       return {...state, categories: action.payload}
     case "ADD_WORD":
       const updatedWords = state.words

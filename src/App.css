@@ -15,6 +15,16 @@
   border-color: gray;
 }
 
+#category-list {
+  position: fixed;
+  left: 10%;
+  top: 10%;
+  height: 50%;
+  overflow-y: auto;
+  border-style: solid;
+  border-color: gray;
+}
+
 .word {
   border-bottom: solid indigo;
   border-width: 2px;

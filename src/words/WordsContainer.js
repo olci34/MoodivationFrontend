@@ -6,7 +6,6 @@ import WordForm from "./WordForm";
 import { Switch,Route } from "react-router";
 import fetchAuthors from "../actions/fetchAuthors";
 import Word from "./Word"
-import CategoryList from "../categories/CategoryList";
 import fetchCategories from "../actions/fetchCategories";
 
 export default function WordsContainer() {
@@ -17,7 +16,7 @@ export default function WordsContainer() {
     dispatch(fetchWords())
     dispatch(fetchAuthors())
     dispatch(fetchCategories())
-  });
+  },[]);
 
   return (
     <Switch>
@@ -29,9 +28,6 @@ export default function WordsContainer() {
       </Route>
       <Route path="/words/:id">
         <Word />
-      </Route>
-      <Route path="/categories">
-        <CategoryList />
       </Route>
     </Switch>
   );
