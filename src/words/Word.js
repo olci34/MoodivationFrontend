@@ -16,7 +16,7 @@ export default function Word() {
 
   return (
     <div className="word">
-      <h3><Link to={`/words/${word.id}`}> {word.title} </Link></h3>
+      <h3><Link to={`/words/${word.id}`}> {Object.values(word.title)[0]} </Link></h3>
       <label>Author: {word.author.name}, Categories: {word.categories.map(c => c.name).join(', ')}</label>
       <br/>
       <Button variant="contained" onClick={handleDeleteWord}>

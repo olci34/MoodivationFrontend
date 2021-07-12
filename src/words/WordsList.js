@@ -13,7 +13,7 @@ export default function WordsList() {
       <ol>
         {words.map((word) => (
           <li key={`words-list-item-${word.id}`}>
-            <Link to={`/words/${word.id}`} >{word.title}</Link>
+            <Link to={`/words/${word.id}`} >{Object.values(word.title)[0]}</Link>
           </li>
         ))}
       </ol>

@@ -1,61 +1,54 @@
 import { useState } from "react";
+import AddIcon from '@material-ui/icons/AddBox';
 import {
   Button,
   TextField,
-  FormControl,
-  Select,
-  InputLabel,
-  MenuItem,
+  Fab
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { useSelector, useDispatch } from "react-redux";
 import postWord from "../actions/postWord";
 import editWord from "../actions/editWord";
 import { useHistory } from "react-router";
+import PartialFormTitle from "./PartialFormTitle";
+
 
 export default function WordForm(props) {
-  const preState = props.word
-    ? { ...props.word, language: "en" }
-    : {
-        language: "", // for now, just english is supported
-        size: "24",
-        title: "",
-        author: { name: "" },
-        categories: [],
-      };
-  const buttonName = props.word ? "Edit Word" : "Create Word";
-  const [state, setState] = useState(preState);
-  const history = useHistory();
-  const dispatch = useDispatch();
+  
+  let [wordLang, wordTitle, wordLang2, wordTitle2] = ["","","",""]
+  if (props.word) {
+    [wordLang, wordTitle, wordLang2, wordTitle2] = [Object.keys(props.word.title)[0], Object.values(props.word.title)[0], Object.keys(props.word.title)[1], Object.values(props.word.title)[1]]
+  }
+
+  const [lang, setLang] = useState(wordLang)
+  const [title, setTitle] = useState(wordTitle)
+  const [langTR, setLangTR] = useState(wordLang2)
+  const [titleTR, setTitleTR] = useState(wordTitle2)
+  const [author, setAuthor] = useState(props.word ? props.word.author : {name: ""})
+  const [categories, setCategories] = useState(props.word ? props.word.categories : [])
+  const [titles, setTitles] = useState([<PartialFormTitle key="partialForm1" title={title} lang={lang} setLang={setLang} setTitle={setTitle} />])
+  
   const authors = useSelector((state) => state.authors);
-  const categories = useSelector((state) =>
+  const stateCategories = useSelector((state) =>
     state.words.map((w) => w.categories).flat()
   ); // Sorts fetched words categories instead of a categories fetch request
-  const categoryOptions = [...new Set(categories.map((c) => c.id))].map(
+  const categoryOptions = [...new Set(stateCategories.map((c) => c.id))].map(
     (id) => {
-      return { id: id, name: categories.find((c) => c.id === id).name };
+      return { id: id, name: stateCategories.find((c) => c.id === id).name };
     }
   ); // eleminates duplicate categories
 
-  const handleChange = (e, newValue = undefined) => {
-    if (newValue) {
-      const name = e.target.id.split("-")[0] || "categories"; // string is added because when a category removed e.target.id returns ""
-      setState({ ...state, [name]: newValue });
-    } else if (e.target.name === "title") {
-      setState({ ...state, [e.target.name]: e.target.value });
-    } else {
-      // If new author is entered
-      setState({ ...state, [e.target.name]: { name: e.target.value } });
-    }
-  };
+  const buttonName = props.word ? "Edit Word" : "Create Word";
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   const handleWordSubmit = async (e) => {
     e.preventDefault();
-    const categoryIds = state.categories.map((c) => c.id);
+    const categoryIds = categories.map((c) => c.id);
     const word = {
-      size: state.size,
-      title: { [state.language]: state.title },
-      author_id: state.author.id,
+      size: 24,
+      title: { [lang]: title, [langTR]: titleTR },
+      author_id: author.id,
       category_ids: categoryIds,
     };
     if (props.word) {
@@ -68,39 +61,22 @@ export default function WordForm(props) {
       history.push("/words");
     }
   };
-
   return (
     <form id="word-form" onSubmit={handleWordSubmit}>
-      <FormControl variant="outlined" margin="normal" size="small">
-        <InputLabel>Lang</InputLabel>
-        <Select
-          name="language"
-          value={state.language}
-          onChange={(e) =>
-            setState({ ...state, [e.target.name]: e.target.value })
-          }
-          label="Language"
-        >
-          <MenuItem value={"en"}>en</MenuItem>
-          <MenuItem value={"tr"}>tr</MenuItem>
-        </Select>
-      </FormControl>
-      <TextField
-        name="title"
-        variant="outlined"
-        multiline
-        rows={4}
-        fullWidth
-        label="Word"
-        placeholder="Please enter your word here"
-        value={state.title}
-        onChange={handleChange}
-      />
+      
+      {titles}
+      
       <Autocomplete
         id="author"
-        value={state.author}
+        value={author}
         freeSolo
-        onChange={handleChange}
+        onChange={(e, newValue) => {
+            if (newValue) {
+                setAuthor(newValue)
+            } else {
+                setAuthor({name: ""})
+            }
+        }}
         options={authors}
         getOptionLabel={(author) => author.name}
         style={{ width: 300 }}
@@ -109,7 +85,7 @@ export default function WordForm(props) {
             {...params}
             name="author"
             margin="normal"
-            onChange={handleChange}
+            onChange={(e) => setAuthor({name: e.target.value})}
             label="Author"
             variant="outlined"
           />
@@ -118,8 +94,8 @@ export default function WordForm(props) {
       <Autocomplete
         id="categories"
         multiple
-        value={state.categories}
-        onChange={handleChange}
+        value={categories}
+        onChange={(e, newValue) => newValue ? setCategories(newValue) : console.log("No new value of category") }
         options={categoryOptions}
         getOptionLabel={(category) => category.name}
         style={{ width: 300 }}
@@ -132,6 +108,15 @@ export default function WordForm(props) {
           />
         )}
       />
+      <Fab color="primary" size="small">
+        <AddIcon onClick={() => {
+            if (titles.length < 2) {
+               setTitles([...titles, <PartialFormTitle key="partialForm2" title={titleTR} lang={langTR} setLang={setLangTR} setTitle={setTitleTR}/> ])
+            } else {
+                alert("You can't add more than 2 different languages")
+            }
+        }} />
+      </Fab>
       <Button type="submit" variant="contained">
         {buttonName}
       </Button>
