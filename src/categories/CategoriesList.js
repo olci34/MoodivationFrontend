@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import ListItemLink from "../layout/ListItemLink"
 
-export default function CategoryList() {
+export default function CategoriesList() {
 
     const categories = useSelector(state => state.categories)
 
